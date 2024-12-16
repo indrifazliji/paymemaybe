@@ -58,3 +58,26 @@ router.post('/register', async (req, res) => {
   }
 });
 //arsim continue with the login API
+
+router.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const user = await User.findOne({ email });
+    if (!user) return res.status(400).json({ msg: 'Invalid credentials' });
+
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) return res.status(400).json({ msg: 'Invalid credentials' });
+
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    res.status(200).json({
+      token,
+      role: user.role,
+      userId: user._id // Include userId in response
+    });
+  } catch (error) {
+    res.status(500).json({ msg: 'Server error' });
+  }
+});
+
+module.exports = router;
+// arsim's finished
