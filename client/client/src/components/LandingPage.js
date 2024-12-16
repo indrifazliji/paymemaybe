@@ -39,3 +39,12 @@ function LandingPage() {
         </div>
       </section>
   //arsim's work is done gazmend can countinue
+   {/* Footer */}
+      <footer className="footer">
+        <p>© 2024 PayMeMaybe | <a href="/privacy">Privacy Policy</a> | <a href="/contact">Contact Us</a></p>
+      </footer>
+    </div>
+  );
+}
+
+export default LandingPage;
