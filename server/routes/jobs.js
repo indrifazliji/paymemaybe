@@ -135,5 +135,71 @@ router.get('/in-progress/:freelancerId', async (req, res) => {
     res.status(500).json({ message: 'Error retrieving in-progress jobs' });
   }
 });
+router.post('/:jobId/milestones/:milestoneId/submit-work', async (req, res) => {
+  const { jobId, milestoneId } = req.params;
+  const { workUrl } = req.body;
+
+  try {
+    const job = await Job.findById(jobId);
+    if (!job) return res.status(404).json({ message: 'Job not found' });
+
+    const milestone = job.milestones.id(milestoneId);
+    if (!milestone) return res.status(404).json({ message: 'Milestone not found' });
+
+    milestone.status = 'In Progress';
+    milestone.workSubmitted = workUrl;
+
+    await job.save();
+    res.status(200).json({ message: 'Work submitted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error submitting work' });
+  }
+});
+
+// Route to get job details with applicants
+router.get('/:jobId/details', async (req, res) => {
+  try {
+    console.log("Received request for job details with jobId:", req.params.jobId); // Debug log
+    const job = await Job.findById(req.params.jobId).populate('applicants.freelancer', 'name email');
+    if (!job) {
+      console.log("Job not found with id:", req.params.jobId); // Additional logging
+      return res.status(404).json({ message: 'Job not found' });
+    }
+    res.status(200).json(job);
+  } catch (error) {
+    console.error('Error retrieving job details:', error);
+    res.status(500).json({ message: 'Error retrieving job details' });
+  }
+});
+router.patch('/:jobId', async (req, res) => {
+  const { jobId } = req.params;
+  const { client } = req.body;
+
+  try {
+    const job = await Job.findByIdAndUpdate(jobId, { client }, { new: true });
+    if (!job) return res.status(404).json({ error: 'Job not found' });
+
+    res.status(200).json({ message: 'Job updated successfully', job });
+  } catch (error) {
+    res.status(500).json({ error: 'Error updating job' });
+  }
+});
+// Route to assign a freelancer to a job and update status
+router.patch('/:jobId/assign', async (req, res) => {
+  const { freelancerId } = req.body;
+
+  try {
+    const job = await Job.findById(req.params.jobId);
+    if (!job) return res.status(404).json({ message: 'Job not found' });
+
+    job.freelancer = freelancerId;
+    job.status = 'In Progress';
+
+    await job.save();
+    res.status(200).json({ message: 'Freelancer assigned to job', job });
+  } catch (error) {
+    res.status(500).json({ message: 'Error assigning freelancer' });
+  }
+});
 
 module.exports = router;
