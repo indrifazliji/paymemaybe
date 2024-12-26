@@ -1,0 +1,130 @@
+/* Dashboard Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: linear-gradient(135deg, #151531, #1f1f3a);
+  color: #e4e4e4;
+  border-bottom: 2px solid #24244d;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+  border-radius: 12px;
+  z-index: 10;
+}
+
+/* Profile Information */
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: flex-start;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 229, 255, 0.2);
+  transition: background 0.3s, box-shadow 0.3s;
+}
+
+.profile-info:hover {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.3);
+}
+
+/* Profile Circle */
+.profile-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #00adb5;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(0, 173, 181, 0.5), 0 0 10px rgba(0, 173, 181, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+}
+
+.profile-circle:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 30px rgba(0, 173, 181, 0.7), 0 0 15px rgba(0, 173, 181, 0.5);
+  border-color: #007991;
+}
+
+/* Balance Display */
+.balance {
+  font-size: 18px;
+  color: #cfcfcf;
+  font-weight: 600;
+}
+
+/* Dropdown Toggle */
+.dropdown-toggle {
+  cursor: pointer;
+  font-size: 24px;
+  color: #4dd0e1;
+  transition: transform 0.4s ease-in-out;
+}
+
+.dropdown-toggle.active {
+  transform: rotate(180deg);
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+  position: absolute;
+  top: 150px;
+  left: 9.5vh;
+  background: linear-gradient(135deg, #2a2a72, #009ffd);
+  color: #e4e4e4;
+  border-radius: 12px;
+  padding: 20px;
+  flex-direction: column;
+  min-width: 180px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  animation: slideDown 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 1000;
+  display: flex;
+}
+
+.dropdown-menu button {
+  background: none;
+  color: #e4e4e4;
+  padding: 14px 20px;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 16px;
+  border-radius: 6px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.dropdown-menu button:hover {
+  background: #3e4067;
+  color: #00e5ff;
+  box-shadow: 0 0 10px rgba(0, 229, 255, 0.3);
+}
+/* General Dashboard Container */
+.dashboard-container {
+  font-family: 'Roboto', sans-serif;
+  color: #e4e4e4;
+  background: linear-gradient(135deg, #0d0d24, #1b1b38); /* Background gradient */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  animation: fadeIn 1s ease-in-out;
+  overflow-x: hidden;
+}
+
+/* Dashboard Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: linear-gradient(135deg, #151531, #1f1f3a);
+  color: #e4e4e4;
+  border-bottom: 2px solid #24244d;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+  border-radius: 12px;
+  z-index: 10;
+}
+// added some neony style to the dashboard
