@@ -6,7 +6,7 @@ import './Dashboard.css';
 const Dashboard = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
-  const [user, setUser] = useState({ balance: 0, profilePhoto: '' });
+  const [user, setUser] = useState({ balance: 0, profilePhoto: '', role: '', tags: [] });
   const userId = localStorage.getItem('userId');
   const [searchTerm, setSearchTerm] = useState('');
   const [availableJobs, setAvailableJobs] = useState([]);
@@ -15,22 +15,29 @@ const Dashboard = () => {
     try {
       const response = await API.get('/api/jobs');
       // Filter out jobs that have been accepted
-      const openJobs = response.data.filter((job) => job.status !== 'Accepted');
-      setAvailableJobs(openJobs);
+      let openJobs = response.data.filter((job) => job.status !== 'Accepted');
+
+      // If user is a freelancer, filter jobs by matching tags
+      if (user.role === 'freelancer') {
+        const userTags = user.tags.map((tag) => tag.toLowerCase());
+        openJobs = openJobs.filter((job) =>
+          job.tags?.some((tag) => userTags.includes(tag.toLowerCase()))
+        );
+      }
+ setAvailableJobs(openJobs);
     } catch (error) {
       console.error('Error fetching available jobs:', error);
     }
   };
 
   useEffect(() => {
-    // Fetch User Data
     const fetchUserData = async () => {
       if (!userId) {
         navigate('/login');
         return;
       }
       try {
-        const response = await API.get(`/api/users/${userId}`);
+        const response = await API.get(/api/users/${userId});
         setUser({
           ...response.data,
           balance: response.data.balance
@@ -41,35 +48,38 @@ const Dashboard = () => {
         console.error('Error fetching user data:', error);
       }
     };
-
-    // Call the functions
-    fetchUserData();
-    fetchAvailableJobs();
+fetchUserData();
   }, [userId, navigate]);
+
+  useEffect(() => {
+    // Once user is fetched, then fetch available jobs
+    if (user.role) {
+      fetchAvailableJobs();
+    }
+  }, [user]);
 
   const handleLogout = () => {
     localStorage.clear();
     navigate('/login');
   };
 
-  // Filtered jobs based on search
+  // Filter jobs based on search term
   const filteredJobs = availableJobs.filter((job) =>
     job.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  return (
+return (
     <div className="dashboard-container">
       <header className="dashboard-header">
         <div className="profile-info">
           <img
-            src={`http://localhost:5000/uploads/${user.profilePhoto}`}
+            src={http://localhost:5000/uploads/${user.profilePhoto}}
             alt="Profile"
             className="profile-circle"
             onError={(e) => (e.target.src = '/path/to/default-pic.jpg')}
           />
           <p className="balance">Balance: ${user.balance}</p>
           <div
-            className={`dropdown-toggle ${showMenu ? 'active' : ''}`}
+            className={dropdown-toggle ${showMenu ? 'active' : ''}}
             onClick={() => setShowMenu(!showMenu)}
           >
             &#9662;
@@ -81,6 +91,14 @@ const Dashboard = () => {
           )}
         </div>
       </header>
+
+{user.role === 'client' && (
+        <div className="create-job-container">
+          <button onClick={() => navigate('/create-job')}>
+            Create a New Job
+          </button>
+        </div>
+      )}
 
       <section className="available-jobs-section">
         <h2>Available Jobs Based on Your Skills</h2>
@@ -99,7 +117,7 @@ const Dashboard = () => {
                 <p className="job-description">{job.description}</p>
                 <button
                   className="view-job-button"
-                  onClick={() => console.log(`Navigating to job ${job._id}`)}
+                  onClick={() => console.log(Navigating to job ${job._id})}
                 >
                   View Job
                 </button>
@@ -114,4 +132,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Dashboard;
