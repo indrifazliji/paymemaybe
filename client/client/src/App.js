@@ -1,10 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import Profile from './components/profile/Profile'; // Import the Profile component
+import './App.css'; 
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <Profile /> 
+    <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.
@@ -23,3 +25,4 @@ function App() {
 }
 
 export default App;
+// Added Profile.js components
