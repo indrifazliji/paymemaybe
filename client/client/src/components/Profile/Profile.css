@@ -1,1 +1,73 @@
+/* Basic profile container */
+.profile-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
 
+/* Header */
+.profile-container h2 {
+  font-size: 2rem;
+  color: #00b4d8;
+  margin-bottom: 1rem;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Input fields for edit mode */
+.profile-container input[type="text"],
+.profile-container input[type="email"] {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  background: #262626;
+  color: #f0f0f0;
+  border: 1px solid #00b4d8;
+  border-radius: 5px;
+}
+
+/* Buttons */
+.profile-container button {
+  width: 100%;
+  padding: 0.8rem;
+  background: #00b4d8;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.profile-container button:hover {
+  background: #0077b6;
+  transform: scale(1.05);
+}
+
+/* Profile viewing style */
+.profile-view p {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.profile-view p strong {
+  color: #90e0ef;
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+  .profile-container {
+    padding: 1rem;
+  }
+
+  .profile-container h2 {
+    font-size: 1.5rem;
+  }
+}
+// Created Profile.css file only 30%
